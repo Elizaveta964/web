@@ -1,27 +1,27 @@
 export const generateItem = ({pathImgFirst, pathImgSecond, name, description, cost, discountProCent, addedDate}) => {
     const discountCost = discountPrice(discountProCent, cost)
     return `
-    <div class="flex flex-col justify-between relative bg-[#F4F4F6] transition-all duration-300 rounded-b-2xl pb-3 mt-12 lg:mt-24">
+    <div class="flex flex-col gap-[10px] relative bg-[#F4F4F6] transition-all duration-300 rounded-b-2xl pb-3 mt-4 lg:mt-24">
             <div class="group relative flex justify-center">
                 <img class="lg:h-[590px] h-[217px] hover:opacity-0 ease-in-out duration-300 transition-all" alt="${name}" src="/img/${pathImgFirst}.png"/>
                 <img class="lg:h-[590px] h-[217px] top-0 left-0  absolute opacity-0 hover:opacity-100 ease-in-out duration-300 transition-all"
                      alt="1" src="/img/${pathImgSecond}.png"/>
                 <div class="absolute bottom-3 z-10 flex gap-5">
-                    <div class="p-3 rounded-full bg-white ease-in-out duration-300 border border-white z-10 transition-colors group-hover:bg-transparent"></div>
-                    <div class="p-3 rounded-full border ease-in-out duration-300 border-white z-10 transition-colors group-hover:bg-white"></div>
+                    <div class="lg:w-3 lg:h-3 w-[8px] h-[8px] rounded-full bg-white ease-in-out duration-300 border border-white z-10 transition-colors group-hover:bg-transparent"></div>
+                    <div class="lg:w-3 lg:h-3 w-[8px] h-[8px] rounded-full border ease-in-out duration-300 border-white z-10 transition-colors group-hover:bg-white"></div>
                 </div>
             </div>
-            <div class="absolute flex top-2 right-4 gap-5">
-                ${discountCost !== cost ? '<span class="lg:p-5 p-2 bg-lime-400 rounded-full inline-flex items-center justify-center  lg:text-3xl">%</span>' : ''}
-                ${isNew(addedDate) ? '<span class="lg:p-5 p-2 bg-white rounded-full inline-flex items-center justify-center lg:text-2xl">New</span>' : ''}
+            <div class="absolute flex top-2 right-4 gap-[10px] lg:gap-5">
+                ${discountCost !== cost ? '<span class="lg:w-[61px] lg:h-[61px] w-[29px] h-[29px] bg-[#E0FB52] rounded-full text-xs inline-flex items-center justify-center  lg:text-3xl">%</span>' : ''}
+                ${isNew(addedDate) ? '<span class="lg:w-[61px] lg:h-[61px] w-[29px] h-[29px] bg-white rounded-full inline-flex text-xs items-center justify-center lg:text-2xl">New</span>' : ''}
             </div>
-            <div class="flex flex-col justify-between items-center">
-                <span class="w-[156px] lg:w-[385px] lg:mt-4 text-black text-sm lg:text-[21px] font-medium uppercase leading-7">${name}</span>
-                <div class="self-end flex flex-col items-end mr-5 mb-3">
-                    <span class="text-black text-opacity-50 text-lg font-medium leading-normal">${description}</span>
-                    ${discountCost !== cost ? `<span class="text-black text-xs lg:text-3xl font-medium lg:leading-[39px]">${discountCost} ₽ <span class="text-black text-opacity-30 text-xs lg:text-3xl font-medium line-through ls:leading-[39px]">${cost} ₽</span> / м2</span>` : `<span class="text-black text-xs lg:text-3xl font-medium lg:leading-[39px]">${cost} ₽ / м2</span>`}
+            <div class="flex flex-col justify-between lg:h-[249px] h-[190px] ">
+                <span class="w-[156px] lg:w-[385px] lg:mt-4 text-black text-sm lg:text-[21px] px-[10px] font-medium uppercase leading-[130%]">${name}</span>
+                <div class=" justify-between flex flex-col items-start lg:items-end px-[10px]">
+                    <span class="text-black text-opacity-50 text-base lg:text-lg font-medium self-end leading-normal">${description}</span>
+                    ${discountCost !== cost ? `<span class="text-black text-base lg:text-3xl font-semibold lg:leading-[39px]">${discountCost} ₽ <span class="text-black text-opacity-30 text-base lg:text-3xl font-medium line-through ls:leading-[39px]">${cost} ₽</span> / м2</span>` : `<span class="text-black text-base lg:text-3xl font-medium lg:leading-[39px]">${cost} ₽ / м2</span>`}
                 </div>
-                <button class="lg:w-[385px] lg:h-[63px] lg:px-[30px] lg:pt-[15px] lg:pb-4 w-[136px] h-9 px-[30px] pt-[7px] pb-2 rounded-[50px] border border-black justify-center items-center  inline-flex text-black text-xl hover:text-white hover:bg-black transition-all ease-in-out duration-500">
+                <button class="lg:w-[385px] lg:h-[63px] mx-auto lg:px-[30px] lg:pt-[15px] lg:pb-4 w-[136px] h-9 px-[30px] pt-[7px] pb-2 rounded-[50px] border border-black justify-center items-center inline-flex text-black text-xl hover:text-white hover:bg-black transition-all ease-in-out duration-500">
                     Купить
                 </button>
             </div>
@@ -106,8 +106,8 @@ export function getRandomItem() {
     const item = {}
     item.pathImgFirst = getRandomNumber(1, 8)
     item.pathImgSecond = getRandomNumber(1, 8)
-    item.name = namesArray[getRandomNumber(0, 20)]
-    item.description = descriptionArray[getRandomNumber(0, 20)]
+    item.name = namesArray[getRandomNumber(0, namesArray.length - 1)]
+    item.description = descriptionArray[getRandomNumber(0, descriptionArray.length - 1)]
     item.cost = getRandomNumber(2000, 8000)
     if (getRandomNumber(0, 1) === 0) {
         item.discountProCent = false
@@ -172,8 +172,8 @@ export const generatePagination = () => {
     const paginationContainer = document.querySelector('#pagination-container');
     const itemsContainer = document.querySelector('#items-container')
     const itemsLength = itemsContainer.children.length
-    const activePage = '<div class="lg:p-4 p-2 bg-black rounded-full border border-black"></div>'
-    const inactivePage = '<div class="lg:p-4 p-2 rounded-full border border-black"></div>'
+    const activePage = '<div class="lg:w-[15px] lg:h-[15px] w-[10px] h-[10px] bg-black rounded-full border border-black"></div>'
+    const inactivePage = '<div class="lg:w-[15px] lg:h-[15px] w-[10px] h-[10px] rounded-full border border-black"></div>'
     const showInPage = isMobile() ? 2 : 3
     // console.log(Math.round(itemsLength / showInPage))
     for (let i = 0; i < Math.round(itemsLength / showInPage); i++) {

@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const img2 = img1.nextElementSibling
             const paginationSphere1 = i.querySelector('.rounded-full')
             const paginationSphere2 = paginationSphere1.nextElementSibling
-
             let startPoint;
             let moved = false;
             function touch(e) {
@@ -64,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     img2.classList.add('opacity-0')
                     img1.classList.remove('opacity-0')
                     paginationSphere2.classList.remove('bg-white')
-                    paginationSphere1.classList.remove('bg-transparent')    
+                    paginationSphere1.classList.remove('bg-transparent')
                     moved = true;
                 }
                 if (e.changedTouches[0].pageX < startPoint - i.offsetWidth / 4) {
