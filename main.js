@@ -42,6 +42,7 @@ prevBtn.addEventListener('click', () => {
 document.addEventListener("DOMContentLoaded", () => {
     generateShowItems(itemsToShow)
     generatePagination()
+    console.log(isMobile())
     if(isMobile()) {
         Array.from(itemsContainer.children).forEach((i)=>{
             const img1 = i.querySelector('img')
